@@ -16,11 +16,7 @@ public class   Main {
         int sgViewInpue_B = Integer.parseInt(sb_B.reverse().toString());
 
         //comparision
-        if(sgViewInpue_A>sgViewInpue_B){
-            System.out.println(sgViewInpue_A);
-        }else{
-            System.out.println(sgViewInpue_B);
-        }
+        System.out.println(sgViewInpue_A>sgViewInpue_B ? sgViewInpue_A : sgViewInpue_B);
     }
 }
 
