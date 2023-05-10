@@ -1,34 +1,39 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /*
 이 문제 C++이었으면, 포인터로 Queue 만들어서 풀면 좋을 듯.
  */
 public class   Main {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String num ;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        boolean isPalindrome=true;
+        int front;
+        int rear;
+        boolean isPalindrome;
         while(true){
+            isPalindrome=true;
 
-            num = in.next();
+            String num = br.readLine(); // received to ith line
+            front=0;
+            rear = num.length()-1; //input string의 마지막 index number를 가르킴
 
-            if(num.equals("0")) break;
+            if(num.equals("0"))break;
 
-            int front=0;    // 숫자의 첫번째
-            int rear=num.length()-1;  //맨 마지막 숫자
-
-
-                while(front<rear){
-                    if(num.charAt(front++)!=num.charAt(rear--)){
-                        isPalindrome=false;
-                        break;
-                    }
+            while(front<rear){
+                if(num.charAt(front++)!=num.charAt(rear--)){
+                    isPalindrome=false;
+                    break;
+                }else{
+                    isPalindrome=true;
                 }
-                if(isPalindrome==false) sb.append("no\n");
-                else sb.append("yes\n");
-                isPalindrome=true;
+            }
+            if(isPalindrome==true) sb.append("yes\n");
+            else sb.append("no\n");
         }
+        // out of loop
         System.out.println(sb);
     }
 }
