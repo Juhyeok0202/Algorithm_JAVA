@@ -1,57 +1,52 @@
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class   Main {
-    public static void main(String[] args){
-        Scanner in = new Scanner(System.in);
-        int N = in.nextInt(); // N장의 카드
-        int M = in.nextInt(); // 딜러가 외친 숫자 M
-        int []card = new int[N];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-        for (int i = 0; i < card.length; ++i) { //card에 쓰여진 숫자설정
-            card[i] = in.nextInt();
-        }
-//        int[] selectedCard = new int[3];
+        /*
+            여태 Integer.valueOf가 더 직관적이어서 해당 메서드를 사용했는데, 이는 리턴타입이
+            객체타입이고, parseInt는 기본 자료형을 리턴해준다.
 
-        /**
-         * [Renewal RULE]
-         * summation(selectedCard) <= M
+            pareInt는 2nd 파라미터에 radix를 주어 원하는 가중값을 곱할 수 있다.
          */
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
-        //Broth_Forth Algorithm
-        int answer=sumCards(N, M, card);
+        int[] chosenCard = new int[N];
+        int chosenCardSize = chosenCard.length;
+        st=new StringTokenizer(br.readLine()," ");
+        for (int i = 0; i < chosenCardSize; ++i) {
+            chosenCard[i] = Integer.parseInt(st.nextToken());
+        }
 
-        System.out.println(answer);
+        System.out.println(backTracking_search(chosenCard,N,M));
     }
 
-    /**
-     *
-     * @param N
-     * @param M
-     * @param card
-     * @return
-     */
-    static int sumCards(int N, int M, int []card) {
-        int sumAmongTriCard=0;
+    static int backTracking_search(int[] arr, int N, int M) {
+        int result=0;
         int temp=0;
         for (int i = 0; i < N - 2; ++i) {
+
+            if(arr[i]>M) continue;
+
             for (int j = i + 1; j < N - 1; ++j) {
+                if (arr[i]+arr[j]>M)continue;
+
                 for (int k = j + 1; k < N; ++k) {
-                    temp = (card[i]+card[j]+card[k]);
-                    if (temp == M) {
-                        return temp;
-                    }
-                    //update
-                    if(sumAmongTriCard < temp && temp < M) {
-                        sumAmongTriCard = temp;
+                    temp=arr[i]+arr[j]+arr[k];
+                    if(temp==M) return temp;
+                    if(temp<M && temp>result){
+                        result=temp;
                     }
                 }
             }
         }
-        return sumAmongTriCard;
+
+        return result;
     }
 }
-
-
-
