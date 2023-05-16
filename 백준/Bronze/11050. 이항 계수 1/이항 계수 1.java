@@ -9,21 +9,12 @@ public class   Main {
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
-
-        int result = binomialCoefficient(N,K);
-        System.out.println(result);
+        System.out.println(binomialCoefficient(N,K));
     }
 
-    static int factorial(int n) {
-        int result=1;
-        for (int i = 1; i <= n; ++i) {
-            result=result*i;
-        }
-        return result;
-    }
+    static int binomialCoefficient(int N, int K) {
+        if(N==K | K==0) return 1;
 
-    static int binomialCoefficient(int N, int K){
-        int result = factorial(N)/(factorial(N-K)*factorial(K));
-        return result;
+        return binomialCoefficient(N - 1, K - 1) + binomialCoefficient(N - 1, K);
     }
 }
