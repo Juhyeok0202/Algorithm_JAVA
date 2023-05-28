@@ -30,19 +30,19 @@ public class Main {
         boolean isValid = false;
         int psLength = ps.length();
         stk = new Stack<Character>();
-        int cnt=0;
+
         for (int i = 0; i < psLength; ++i) {
             if (ps.charAt(i) == '(') {
                 stk.push(ps.charAt(i));
-                cnt++;
-            } else {
-                cnt--;
-                if (stk.empty()==false) stk.pop();
-
+            } else if (stk.empty()){
+                //this case is already not VPS.
+                return isValid;
+            }else {
+                stk.pop();
             }
         }
 
-        if(stk.empty()&&cnt==0) isValid=true;
+        if(stk.empty()) isValid = true;
 
 
         return isValid;
